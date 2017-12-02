@@ -1,8 +1,61 @@
 <html>
 <title>sKaler</title>
 <body>
-[{"port":0,"version":"","type":"config","deployment":"ocf-oic-tomcat","minpods":1,"scale":{"percent":false,"benchmark":true,"ratio":false},"tps":[{"tps":50,"replicas":3},{"tps":100,"replicas":4},{"tps":200,"replicas":5},{"tps":300,"replicas":6},{"tps":400,"replicas":7}],"ratio":{"deployment1":{"name":"","proportion":0},"deployment2":{"name":"","proportion":0}},"intel":{"percent":0,"podcap":0},"cooldown":{"deploymentname":"ocf-oic-tomcat","scaleout":150,"scalein":300}},
-{"port":0,"version":"","type":"config","deployment":"ocf-oic-hazelcast","minpods":1,"scale":{"percent":true,"benchmark":false,"ratio":false},"tps":[{"tps":50,"replicas":3},{"tps":100,"replicas":4},{"tps":200,"replicas":5},{"tps":300,"replicas":6},{"tps":400,"replicas":7}],"ratio":{"deployment1":{"name":"","proportion":0},"deployment2":{"name":"","proportion":0}},"intel":{"percent":50,"podcap":100},"cooldown":{"deploymentname":"ocf-oic-hazelcast","scaleout":150,"scalein":300}},
-{"port":0,"version":"","type":"config","deployment":"ocf-oic-async-server","minpods":1,"scale":{"percent":false,"benchmark":false,"ratio":true},"tps":[{"tps":50,"replicas":3},{"tps":100,"replicas":4},{"tps":200,"replicas":5},{"tps":300,"replicas":6},{"tps":400,"replicas":7}],"ratio":{"deployment1":{"name":"","proportion":0},"deployment2":{"name":"ocf-oic-dmss-server","proportion":0}},"intel":{"percent":0,"podcap":0},"cooldown":{"deploymentname":"ocf-oic-async-server","scaleout":150,"scalein":300}}]
+[{
+	"deploymentname": "ocf-oic-async-server",
+	"scalingcriteria": "ratiobased",
+	"minimumpodcount": 4,
+	"cooldown": {
+		"scaleoutseconds": 20,
+		"scaleinseconds": 20
+	},
+	"scalingconfig": {
+		"deploymenttotrack": "ocf-oic-hazelcast",
+		"masterproportion": 1,
+		"dependantproportion": 2
+	}
+},
+{
+	"deploymentname": "ocf-oic-hazelcast",
+	"scalingcriteria": "targettracking",
+	"minimumpodcount": 4,
+	"cooldown": {
+		"scaleoutseconds": 20,
+		"scaleinseconds": 20
+	},
+	"scalingconfig": {
+		"percentagetotrack": 50,
+		"perpodcapacity": 20
+	}
+},
+{
+	"deploymentname": "ocf-oic-tomcat",
+	"scalingcriteria": "benchmarkbased",
+	"minimumpodcount": 4,
+	"cooldown": {
+		"scaleoutseconds": 20,
+		"scaleinseconds": 20
+	},
+	"scalingconfig": {
+		"tps": [{
+				"tps": 50,
+				"replicas": 5
+			},
+			{
+				"tps": 70,
+				"replicas": 6
+			},
+			{
+				"tps": 90,
+				"replicas": 7
+			},
+			{
+				"tps": 110,
+				"replicas": 8
+			}
+		]
+	}
+}
+]
 </body>
 </html>
