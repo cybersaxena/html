@@ -1,8 +1,8 @@
 <html>
-<title>sKaler</title>
+<title>god bless you!</title>
 <body>
 [{
-	"deploymentname": "ocf-oic-async-server",
+	"deploymentname": "async-server",
 	"scalingcriteria": "ratiobased",
 	"minimumpodcount": 4,
 	"cooldown": {
@@ -10,13 +10,13 @@
 		"scaleinseconds": 20
 	},
 	"scalingconfig": {
-		"deploymenttotrack": "ocf-oic-hazelcast",
+		"deploymenttotrack": "hazelcast",
 		"masterproportion": 1,
 		"dependantproportion": 2
 	}
 },
 {
-	"deploymentname": "ocf-oic-hazelcast",
+	"deploymentname": "hazelcast",
 	"scalingcriteria": "targettracking",
 	"minimumpodcount": 4,
 	"cooldown": {
@@ -29,7 +29,7 @@
 	}
 },
 {
-	"deploymentname": "ocf-oic-tomcat",
+	"deploymentname": "tomcat",
 	"scalingcriteria": "benchmarkbased",
 	"minimumpodcount": 4,
 	"cooldown": {
